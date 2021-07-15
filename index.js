@@ -69,7 +69,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/documentation', (req, res) => {
-  res.sendFile('public/documentation.html', { root: __movie_api });
+  res.sendFile('public/documentation.html', { root: __dirname });
 });
 
 // error handling
