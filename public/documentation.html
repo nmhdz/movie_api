@@ -83,22 +83,30 @@
           <td>Allow new users to register</td>
           <td>/users</td>
           <td>POST</td>
-          <td>A JSON object holding data about the user to register, structured like: <p>{ <br> Username : string <br> Password : string <br> Email : string <br> Birthday : date <br> }</p></td>
-          <td>A JSON object holding data about the user that was registered <br><br> <em>for example:</em> <p>{ <br> "_id": "6079b01a3e7e453e39ec717b", <br>"Username" : "Kitty", <br> "Password" : "myPassword2", <br> "Email" : "email@email.com", <br> "Birthday" : "01/02/2000" <br> }</p></td>
+          <td>A JSON object holding data about the user to register, structured like: <p>{ <br> Username : string <br> Password : string <br> Email : string <br> Birthday : date <br> }</p>
+          </td>
+          <td>A JSON object holding data about the user that was registered <br><br> <em>for example:</em>
+            <p>{ <br> "_id": "6079b01a3e7e453e39ec717b", <br>"Username" : "Kitty", <br> "Password" : "myPassword2", <br> "Email" : "email@email.com", <br> "Birthday" : "01/02/2000" <br> }</p>
+          </td>
         </tr>
         <tr>
           <td>Allow users to update their user info (username, password, email)</td>
           <td>/users/[username]</td>
           <td>PUT</td>
-          <td>A JSON object holding data about the user information to be updated, structured like: <p>{ <br> Username : string <br> Password : string <br> Email : string <br> } </p></td>
-          <td>A JSON object holding the updated user information <br><br> <em>for example:</em> <p>{ <br> "_id" : "6079b01a3e7e453e39ec717b", <br>"Username" : "Kitty", <br> "Password", : "myPassword2", <br> "Email" : "email@email.com" <br> }</p></td>
+          <td>A JSON object holding data about the user information to be updated, structured like: <p>{ <br> Username : string <br> Password : string <br> Email : string <br> } </p>
+          </td>
+          <td>A JSON object holding the updated user information <br><br> <em>for example:</em>
+            <p>{ <br> "_id" : "6079b01a3e7e453e39ec717b", <br>"Username" : "Kitty", <br> "Password", : "myPassword2", <br> "Email" : "email@email.com" <br> }</p>
+          </td>
         </tr>
         <tr>
           <td>Allow users to add a movie to their list of favorites</td>
           <td>/users/[username]/movies/[movieID]</td>
           <td>POST</td>
           <td>None</td>
-          <td>A JSON object holding data about the movie added to the favorites list <br><br> <em>for example:</em> <p> { <br> "FavoriteMovies": "[movieID]", <br> "_id" : " ", <br> "Username" : "Kitty", <br> "Password" : "myPassword2", <br> "Email" : " ", <br> "Birthday" : " " <br> }</p></td>
+          <td>A JSON object holding data about the movie added to the favorites list <br><br> <em>for example:</em>
+            <p> { <br> "FavoriteMovies": "[movieID]", <br> "_id" : " ", <br> "Username" : "Kitty", <br> "Password" : "myPassword2", <br> "Email" : " ", <br> "Birthday" : " " <br> }</p>
+          </td>
         </tr>
         <tr>
           <td>Allow users to remove a movie from their list of favorites</td>
