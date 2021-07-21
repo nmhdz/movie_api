@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
-font-family: 'Roboto', sans-serif;
-margin: 15px;
+  font-family: 'Roboto', sans-serif;
+  margin: 15px;
 }
 
 h1, h2 {
@@ -11,29 +11,29 @@ h1, h2 {
 }
 
 .endpoint_table {
-    border-collapse: collapse;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .endpoint_table thead tr {
-    background-color: #57837B;
-    color: #fff;
-    text-align: left;
+  background-color: #57837B;
+  color: #fff;
+  text-align: left;
 }
 
 .endpoint_table th,
 .endpoint_table td {
-    padding: 12px 25px;
+  padding: 12px 25px;
 }
 
 .endpoint_table tbody tr {
-    border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 .endpoint_table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 
 .endpoint_table tbody tr:last-of-type {
-    border-bottom: 2px solid #57837B;
+  border-bottom: 2px solid #57837B;
 }
