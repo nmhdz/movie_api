@@ -17,7 +17,7 @@ app.get('/documentation', (req, res) => {
   });
 });
 
-//Top 10 movies
+//Top 10 movies -- in memory
 const movies = [
   {
     title: "This Is Where I Leave You",
