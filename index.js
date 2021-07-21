@@ -102,7 +102,7 @@ app.get('/movies/directors/:name', (req, res) => {
 app.post('/users', (req, res) => {
   let newUser = req.body;
 
-  if (!newUser.username) {
+  if (!newUser.Username) {
     const message = 'Missing username in request body';
     res.status(400).send(message);
   } else {
@@ -114,7 +114,7 @@ app.post('/users', (req, res) => {
 
 //Allow users to update user info
 app.put('/users/:username', (req, res) => {
-  res.send('Successful PUT request allowing users to update user informations');
+  res.send('Successful PUT request allowing users to update user information');
 });
 
 //Allow users to add a movie to their list of favorites
