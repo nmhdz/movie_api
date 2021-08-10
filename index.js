@@ -2,12 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+
+const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
 
 const app = express();
 
 //Log to terminal
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Routes request for static file to public folder
 app.use(express.static('public'));
@@ -17,59 +23,8 @@ app.get('/documentation', (req, res) => {
   });
 });
 
-//Top 10 movies -- in memory
-const movies = [
-  {
-    title: "This Is Where I Leave You",
-    director: "Shawn Levy",
-    genre: "Drama"
-  },
-  {
-    title: "The Judge",
-    director: "David Dobkin",
-    genre: "Drama"
-  },
-  {
-    title: "Riding in Cars With Boys",
-    director: "Penny Marshall",
-    genre: "Drama"
-  },
-  {
-    title: "Pulp Fiction",
-    director: "Quentin Tarantino",
-    genre: "Crime"
-  },
-  {
-    title: "Tempation: Confessions of a Marriage Counselor",
-    director: "Tyler Perry",
-    genre: "Drama"
-  },
-  {
-    title: "Just Married",
-    director: "Shawn Levy",
-    genre: "Romance"
-  },
-  {
-    title: "Pineapple Express",
-    director: "David Gordon Green",
-    genre: "Comedy"
-  },
-  {
-    title: "The Count of Monte Cristo",
-    director: "Kevin Reynolds",
-    genre: "Adventure"
-  },
-  {
-    title: "Step Brothers",
-    director: "Adam McKay",
-    genre: "Comedy"
-  },
-  {
-    title: "The Shawshank Redemption",
-    director: "Frank Darabont",
-    genre: "Drama"
-  }
-];
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 //Returns a Welcome message at the endpoint "/"
 app.get('/', (req, res) => {
