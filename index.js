@@ -23,6 +23,11 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+// Import auth.js & passport.js files
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 // Routes request for static file to public folder
 app.use(express.static('public'));
 app.get('/documentation', (req, res) => {
@@ -31,13 +36,10 @@ app.get('/documentation', (req, res) => {
   });
 });
 
-// Returns a Welcome message at the endpoint "/"
-app.get('/', (req, res) => {
-  res.send('Welcome to my movie API!');
-});
-
 // Returns data about ALL movies
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -49,7 +51,9 @@ app.get('/movies', (req, res) => {
 });
 
 // Returns data about a movie by title
-app.get('/movies/:Title', (req, res) => {
+app.get('/movies/:Title', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Movies.findOne({
       Title: req.params.Title
     })
@@ -62,12 +66,15 @@ app.get('/movies/:Title', (req, res) => {
     });
 });
 
-
-// Get all users
-app.get('/users', (req, res) => {
-  Users.find()
-    .then((users) => {
-      res.status(201).json(users);
+// Returns data about a genre by name
+app.get('/movies/genres/:Name', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
+  Movies.findOne({
+      "Genre.Name": req.params.Name
+    })
+    .then(movie => {
+      res.status(200).json(movie.Genre);
     })
     .catch((err) => {
       console.error(err);
@@ -75,7 +82,23 @@ app.get('/users', (req, res) => {
     });
 });
 
-// Add user
+// Returns data about a director by name
+app.get('/movies/directors/:Name', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
+  Movies.findOne({
+      "Director.Name": req.params.Name
+    })
+    .then(movie => {
+      res.status(200).json(movie.Director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+// Allow new users to register
 app.post('/users', (req, res) => {
   Users.findOne({
       Username: req.body.Username
@@ -106,8 +129,24 @@ app.post('/users', (req, res) => {
     });
 });
 
+// Get all users
+app.get('/users', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 // Allow users to update their user info
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Users.findOneAndUpdate({
       Username: req.params.Username
     }, {
@@ -131,7 +170,9 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Allow users to add a movie to their list of favorites
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
+app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Users.findOneAndUpdate({
       Username: req.params.Username
     }, {
@@ -152,7 +193,9 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Users.findOneAndUpdate({
       Username: req.params.Username
     }, {
@@ -173,7 +216,9 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 // Allow existing users to deregister
-app.delete('/users/:Username', (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
   Users.findOneAndRemove({
       Username: req.params.Username
     })
@@ -188,16 +233,6 @@ app.delete('/users/:Username', (req, res) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
-});
-
-// Returns data about a genre by name
-app.get('/movies/genres/:name', (req, res) => {
-  res.send('Successful GET request returning data about a genre by name');
-});
-
-// Returns data about a director by name
-app.get('/movies/directors/:name', (req, res) => {
-  res.send('Successful GET request returning data about a director by name');
 });
 
 // Error handling
