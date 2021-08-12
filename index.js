@@ -38,6 +38,11 @@ app.get('/documentation', (req, res) => {
   });
 });
 
+// Return welcome message
+app.get('/', (req, res) => {
+  res.send('Welcome to my Movie API!');
+});
+
 // Returns data about ALL movies
 app.get('/movies', passport.authenticate('jwt', {
   session: false
