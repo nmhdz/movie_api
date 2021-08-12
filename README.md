@@ -33,3 +33,5 @@ can learn more about movies I’ve watched or am interested in.
 * Heroku
 * MongoDB Atlas
 ## Deployment
+The [myFlix API](https://my-flix-movies-cf.herokuapp.com/) is live now, check it out! 
+Visit my [Documentation](https://my-flix-movies-cf.herokuapp.com/documentation.html) page for more information.
