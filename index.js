@@ -12,14 +12,13 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
 // mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Log to terminal
 app.use(morgan('common'));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import CORS
 const cors = require('cors');
@@ -29,14 +28,6 @@ app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
-
-// Routes request for static file to public folder
-app.use(express.static('public'));
-app.get('/documentation', (req, res) => {
-  res.sendFile('public/documentation.html', {
-    root: __dirname
-  });
-});
 
 // Return welcome message
 app.get('/', (req, res) => {
@@ -261,13 +252,22 @@ app.delete('/users/:Username', passport.authenticate('jwt', {
     });
 });
 
+// Routes request for static file to public folder
+app.use(express.static('public'));
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', {
+    root: __dirname
+  });
+});
+
 // Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Oops, something broke!');
 });
 
+// Listen for requests
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
- console.log('Listening on Port ' + port);
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
 });
